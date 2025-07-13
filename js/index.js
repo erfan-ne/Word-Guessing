@@ -51,4 +51,19 @@ const questions = [
   },
 ];
 
-//* Start Coding 👨‍💻🔥❤️
+const inputs = document.querySelector(".inputs")
+const hintTitle = document.querySelector(".hint-title")
+const userWritted = document.querySelector(".user-writted")
+const guessCount = document.querySelector(".guess-count")
+const score = document.querySelector(".score")
+const continueBtn = document.querySelector(".continue")
+const resetBtn = document.querySelector(".reset")
+
+const loadPage = () => {
+  questions.forEach((question)=>{
+    console.log(question);
+    
+  })
+}
+
+window.addEventListener("load" , loadPage)
