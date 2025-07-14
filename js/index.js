@@ -59,11 +59,21 @@ const score = document.querySelector(".score")
 const continueBtn = document.querySelector(".continue")
 const resetBtn = document.querySelector(".reset")
 
-const loadPage = () => {
-  questions.forEach((question)=>{
-    console.log(question);
-    
-  })
+let questionIndex = 0;
+
+const loadQuestion = () => {
+  const currentQuestion = questions[questionIndex]
+  const answerLength = currentQuestion.answer.length
+  
+  hintTitle.innerHTML = currentQuestion.hint
+  for (let i = 0; i < answerLength; i++) {
+    inputs.insertAdjacentHTML("beforeend" ,
+      `
+      <input class="letter" maxlength="1"></input>
+      `
+    )
+  }
+
 }
 
-window.addEventListener("load" , loadPage)
+window.addEventListener("load" , loadQuestion)
