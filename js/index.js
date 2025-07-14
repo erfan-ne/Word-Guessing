@@ -63,10 +63,12 @@ const resetBtn = document.querySelector(".reset");
 let questionIndex = 0;
 let currentScore = 0;
 let userAnswer = [];
+let remainingGuess = 3;
 
 const loadQuestion = () => {
   const currentQuestion = questions[questionIndex];
   const answerLength = currentQuestion.answer.length;
+  guessCount.innerHTML = remainingGuess
 
   hintTitle.innerHTML = currentQuestion.hint;
   for (let i = 0; i < answerLength; i++) {
@@ -82,19 +84,21 @@ const loadQuestion = () => {
       userWritted.innerHTML = userAnswer.join("").toUpperCase()
     });
   });
-  
 };
 
 const nextQuestion = () => {
-  // console.log(questions[questionIndex].answer);
+  if (userWritted.innerHTML === questions[questionIndex].answer){
+    currentScore += questions[questionIndex].score
+    console.log(currentScore);
+  } else {
+    remainingGuess--
+  }
 
   questionIndex++;
   inputs.innerHTML = "";
+  userAnswer = []
   loadQuestion();
-
-  if (userWritted.innerHTML === questions[questionIndex].answer)
-    console.log("ok");
-};
+}
 
 window.addEventListener("load", loadQuestion);
 continueBtn.addEventListener("click", nextQuestion);
