@@ -51,29 +51,45 @@ const questions = [
   },
 ];
 
-const inputs = document.querySelector(".inputs")
-const hintTitle = document.querySelector(".hint-title")
-const userWritted = document.querySelector(".user-writted")
-const guessCount = document.querySelector(".guess-count")
-const score = document.querySelector(".score")
-const continueBtn = document.querySelector(".continue")
-const resetBtn = document.querySelector(".reset")
+const inputs = document.querySelector(".inputs");
+const hintTitle = document.querySelector(".hint-title");
+const userWritted = document.querySelector(".user-writted");
+const guessCount = document.querySelector(".guess-count");
+const score = document.querySelector(".score");
+const continueBtn = document.querySelector(".continue");
+const resetBtn = document.querySelector(".reset");
+
 
 let questionIndex = 0;
+let currentScore = 0;
+let userAnswer = [];
 
 const loadQuestion = () => {
-  const currentQuestion = questions[questionIndex]
-  const answerLength = currentQuestion.answer.length
-  
-  hintTitle.innerHTML = currentQuestion.hint
+  const currentQuestion = questions[questionIndex];
+  const answerLength = currentQuestion.answer.length;
+
+  hintTitle.innerHTML = currentQuestion.hint;
   for (let i = 0; i < answerLength; i++) {
-    inputs.insertAdjacentHTML("beforeend" ,
-      `
-      <input class="letter" maxlength="1"></input>
-      `
-    )
+    inputs.insertAdjacentHTML(
+      "beforeend",
+      `<input class="letter" maxlength="1"></input>`
+    );
   }
 
-}
+  
+};
 
-window.addEventListener("load" , loadQuestion)
+const nextQuestion = () => {
+  // console.log(questions[questionIndex].answer);
+
+  questionIndex++;
+  inputs.innerHTML = "";
+  loadQuestion();
+
+  if (userWritted.innerHTML === questions[questionIndex].answer)
+    console.log("ok");
+};
+
+window.addEventListener("load", loadQuestion);
+continueBtn.addEventListener("click", nextQuestion);
+
