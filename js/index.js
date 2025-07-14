@@ -75,7 +75,13 @@ const loadQuestion = () => {
       `<input class="letter" maxlength="1"></input>`
     );
   }
-
+  const letters = document.querySelectorAll(".letter");
+  letters.forEach((letter) => {
+    letter.addEventListener("input", function () {
+      userAnswer.push(letter.value)
+      userWritted.innerHTML = userAnswer.join("").toUpperCase()
+    });
+  });
   
 };
 
