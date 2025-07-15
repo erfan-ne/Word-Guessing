@@ -59,7 +59,6 @@ const score = document.querySelector(".score");
 const continueBtn = document.querySelector(".continue");
 const resetBtn = document.querySelector(".reset");
 
-
 let questionIndex = 0;
 let currentScore = 0;
 let userAnswer = [];
@@ -68,7 +67,8 @@ let remainingGuess = 3;
 const loadQuestion = () => {
   const currentQuestion = questions[questionIndex];
   const answerLength = currentQuestion.answer.length;
-  guessCount.innerHTML = remainingGuess
+
+  guessCount.innerHTML = remainingGuess;
 
   hintTitle.innerHTML = currentQuestion.hint;
   for (let i = 0; i < answerLength; i++) {
@@ -80,26 +80,27 @@ const loadQuestion = () => {
   const letters = document.querySelectorAll(".letter");
   letters.forEach((letter) => {
     letter.addEventListener("input", function () {
-      userAnswer.push(letter.value)
-      userWritted.innerHTML = userAnswer.join("").toUpperCase()
+      userAnswer.push(letter.value);
+      userWritted.innerHTML = userAnswer.join("").toUpperCase();
     });
   });
 };
 
+const questionValidation = () => {};
+
 const nextQuestion = () => {
-  if (userWritted.innerHTML === questions[questionIndex].answer){
-    currentScore += questions[questionIndex].score
-    console.log(currentScore);
+  if (userWritted.innerHTML === questions[questionIndex].answer) {
+    currentScore += questions[questionIndex].score;
+    score.innerHTML = currentScore;
+    questionIndex++;
   } else {
-    remainingGuess--
+    remainingGuess--;
   }
 
-  questionIndex++;
   inputs.innerHTML = "";
-  userAnswer = []
+  userAnswer = [];
   loadQuestion();
-}
+};
 
 window.addEventListener("load", loadQuestion);
 continueBtn.addEventListener("click", nextQuestion);
-
