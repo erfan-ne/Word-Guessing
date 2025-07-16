@@ -65,7 +65,6 @@ let userAnswer = [];
 let remainingGuess = 3;
 
 const loadQuestion = () => {
-  
   const currentQuestion = questions[questionIndex];
   const answerLength = currentQuestion.answer.length;
 
@@ -81,36 +80,47 @@ const loadQuestion = () => {
 
   const letters = document.querySelectorAll(".letter");
 
-  letters.forEach((letter , index) => {
+  letters.forEach((letter, index) => {
     const regex = /^[a-zA-Z]$/;
 
     letter.addEventListener("input", () => {
-      
       if (regex.test(letter.value)) {
         userAnswer.push(letter.value);
-        userWritted.innerHTML = userAnswer.join("").toUpperCase()
+        userWritted.innerHTML = userAnswer.join("").toUpperCase();
       }
     });
 
-    letter.addEventListener("keyup" , (event) =>{
-      
+    letter.addEventListener("keyup", (event) => {
       if (!regex.test(event.key)) {
-        event.target.value = ""
-      } if (event.target.value.length === 1 && index < answerLength-1) {
-        letters[index + 1].focus();
-      } if (event.key === "Backspace" && index > 0){
-        userAnswer.pop()
-        userWritted.innerHTML = userAnswer.join("").toUpperCase()
-        console.log(userAnswer);
-        letters[index - 1].value = ""
-        letters[index - 1].focus()
+        event.target.value = "";
       }
-
-      
-    })
+      if (event.target.value.length === 1 && index < answerLength - 1) {
+        letters[index + 1].focus();
+      }
+      if (event.key === "Backspace") {
+        // if(index +1 === answerLength){
+        //   userAnswer.pop();
+        //   userWritted.innerHTML = userAnswer.join("").toUpperCase();
+        //   letters[index].value = "";
+        //   letters[index - 1].focus();
+        // } else {
+        //   userAnswer.pop();
+        //   userWritted.innerHTML = userAnswer.join("").toUpperCase();
+        //   letters[index - 1].value = "";
+        //   letters[index - 1].focus();
+        // }
+          userAnswer.pop();
+          userWritted.innerHTML = userAnswer.join("").toUpperCase();
+          letters[index].value = "";
+          if(index > 0){
+            letters[index - 1].focus();
+          }
+          
+      }
+    });
   });
 
-  letters[0].focus()
+  letters[0].focus();
 };
 
 const questionValidation = () => {};
