@@ -65,6 +65,7 @@ let userAnswer = [];
 let remainingGuess = 3;
 
 const loadQuestion = () => {
+  
   const currentQuestion = questions[questionIndex];
   const answerLength = currentQuestion.answer.length;
 
@@ -97,13 +98,19 @@ const loadQuestion = () => {
         event.target.value = ""
       } if (event.target.value.length === 1 && index < answerLength-1) {
         letters[index + 1].focus();
-      } if (event.key.value === "Backspace" && index > 0){
-        letter[index - 1].focus()
+      } if (event.key === "Backspace" && index > 0){
+        userAnswer.pop()
+        userWritted.innerHTML = userAnswer.join("").toUpperCase()
+        console.log(userAnswer);
+        letters[index - 1].value = ""
+        letters[index - 1].focus()
       }
 
       
     })
   });
+
+  letters[0].focus()
 };
 
 const questionValidation = () => {};
