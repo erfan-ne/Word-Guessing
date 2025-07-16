@@ -61,8 +61,8 @@ const resetBtn = document.querySelector(".reset");
 
 let questionIndex = 0;
 let currentScore = 0;
-let userAnswer = [];
 let remainingGuess = 3;
+let userAnswer = [];
 
 const loadQuestion = () => {
   const currentQuestion = questions[questionIndex];
@@ -85,8 +85,8 @@ const loadQuestion = () => {
 
     letter.addEventListener("input", () => {
       if (regex.test(letter.value)) {
-        userAnswer.push(letter.value);
-        userWritted.innerHTML = userAnswer.join("").toUpperCase();
+        userAnswer[index] = letter.value.toUpperCase();
+        userWritted.innerHTML = userAnswer.join("");
       }
     });
 
@@ -94,36 +94,25 @@ const loadQuestion = () => {
       if (!regex.test(event.key)) {
         event.target.value = "";
       }
-      if (event.target.value.length === 1 && index < answerLength - 1) {
-        letters[index + 1].focus();
-      }
       if (event.key === "Backspace") {
-        // if(index +1 === answerLength){
-        //   userAnswer.pop();
-        //   userWritted.innerHTML = userAnswer.join("").toUpperCase();
-        //   letters[index].value = "";
-        //   letters[index - 1].focus();
-        // } else {
-        //   userAnswer.pop();
-        //   userWritted.innerHTML = userAnswer.join("").toUpperCase();
-        //   letters[index - 1].value = "";
-        //   letters[index - 1].focus();
-        // }
-          userAnswer.pop();
-          userWritted.innerHTML = userAnswer.join("").toUpperCase();
+          userAnswer[index] = "";
+          userWritted.innerHTML = userAnswer.join("");
           letters[index].value = "";
           if(index > 0){
+            letters[index - 1].value = "";
+            userAnswer[index - 1] = "";
+            userWritted.innerHTML = userAnswer.join("");
             letters[index - 1].focus();
           }
-          
+      }
+      if (event.target.value.length === 1 && index < answerLength - 1) {
+        letters[index + 1].focus();
       }
     });
   });
 
   letters[0].focus();
 };
-
-const questionValidation = () => {};
 
 const nextQuestion = () => {
   if (userWritted.innerHTML === questions[questionIndex].answer) {
@@ -139,5 +128,16 @@ const nextQuestion = () => {
   loadQuestion();
 };
 
+const resetGame = () => {
+  remainingGuess = 3
+  currentScore = 0
+  questionIndex = 0
+  userAnswer = []
+
+  loadQuestion()
+}
+
 window.addEventListener("load", loadQuestion);
 continueBtn.addEventListener("click", nextQuestion);
+resetBtn.addEventListener("click", resetGame)
+
