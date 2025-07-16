@@ -83,7 +83,7 @@ const loadQuestion = () => {
   letters.forEach((letter , index) => {
     letter.addEventListener("input", () => {
       
-      if (letter.value !== " ") {
+      if (/[^\W]/.test(letter.value)) {
         userAnswer.push(letter.value);
         userWritted.innerHTML = userAnswer.join("").toUpperCase()
       }
