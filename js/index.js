@@ -77,12 +77,30 @@ const loadQuestion = () => {
       `<input class="letter" maxlength="1"></input>`
     );
   }
+
   const letters = document.querySelectorAll(".letter");
-  letters.forEach((letter) => {
-    letter.addEventListener("input", function () {
-      userAnswer.push(letter.value);
-      userWritted.innerHTML = userAnswer.join("").toUpperCase();
+
+  letters.forEach((letter , index) => {
+    letter.addEventListener("input", () => {
+      
+      if (letter.value !== " ") {
+        userAnswer.push(letter.value);
+        userWritted.innerHTML = userAnswer.join("").toUpperCase()
+      }
     });
+
+    letter.addEventListener("keyup" , (event) =>{
+      // console.log(event.key);
+      let regex = /^[a-zA-Z0-9]$/;
+
+      if (!regex.test(event.key)) {
+        event.target.value = ""
+      } else if (event.target.value.length === 1) {
+        letters[index + 1].focus();
+      }
+
+      
+    })
   });
 };
 
