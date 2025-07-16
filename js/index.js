@@ -95,8 +95,10 @@ const loadQuestion = () => {
       
       if (!regex.test(event.key)) {
         event.target.value = ""
-      } else if (event.target.value.length === 1 && index < answerLength-1) {
+      } if (event.target.value.length === 1 && index < answerLength-1) {
         letters[index + 1].focus();
+      } if (event.key.value === "Backspace" && index > 0){
+        letter[index - 1].focus()
       }
 
       
