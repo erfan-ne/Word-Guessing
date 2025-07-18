@@ -606,6 +606,8 @@ body {
   padding: 1rem;
   header {
     padding-bottom: 0.75rem;
+    text-align: center;
+    font-weight: bold;
   }
   main {
     border-top-width: 1px;
