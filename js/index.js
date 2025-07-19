@@ -58,6 +58,8 @@ const guessCount = document.querySelector(".guess-count");
 const score = document.querySelector(".score");
 const continueBtn = document.querySelector(".continue");
 const resetBtn = document.querySelector(".reset");
+const toast = document.querySelector(".toast");
+const toastMessage = document.querySelector(".toast-message")
 
 let questionIndex = 0;
 let currentScore = 0;
@@ -95,15 +97,15 @@ const loadQuestion = () => {
         event.target.value = "";
       }
       if (event.key === "Backspace") {
-          userAnswer[index] = "";
+        userAnswer[index] = "";
+        userWritted.innerHTML = userAnswer.join("");
+        letters[index].value = "";
+        if (index > 0) {
+          letters[index - 1].value = "";
+          userAnswer[index - 1] = "";
           userWritted.innerHTML = userAnswer.join("");
-          letters[index].value = "";
-          if(index > 0){
-            letters[index - 1].value = "";
-            userAnswer[index - 1] = "";
-            userWritted.innerHTML = userAnswer.join("");
-            letters[index - 1].focus();
-          }
+          letters[index - 1].focus();
+        }
       }
       if (event.target.value.length === 1 && index < answerLength - 1) {
         letters[index + 1].focus();
@@ -115,10 +117,22 @@ const loadQuestion = () => {
 };
 
 const nextQuestion = () => {
+  toast.classList.remove("hidden")
+
   if (userWritted.innerHTML === questions[questionIndex].answer) {
     currentScore += questions[questionIndex].score;
     score.innerHTML = currentScore;
     questionIndex++;
+
+    toast.classList.add("success")
+    toastMessage.innerHTML = "آفرین، درست جواب دادی!"
+
+    let timer = setInterval
+    
+    setTimeout(() => {
+      toast.classList.add("hidden")
+      
+    }, 2000);
   } else {
     remainingGuess--;
   }
@@ -129,15 +143,14 @@ const nextQuestion = () => {
 };
 
 const resetGame = () => {
-  remainingGuess = 3
-  currentScore = 0
-  questionIndex = 0
-  userAnswer = []
+  remainingGuess = 3;
+  currentScore = 0;
+  questionIndex = 0;
+  userAnswer = [];
 
-  loadQuestion()
-}
+  loadQuestion();
+};
 
 window.addEventListener("load", loadQuestion);
 continueBtn.addEventListener("click", nextQuestion);
-resetBtn.addEventListener("click", resetGame)
-
+resetBtn.addEventListener("click", resetGame);
