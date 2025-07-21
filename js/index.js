@@ -60,6 +60,7 @@ const continueBtn = document.querySelector(".continue");
 const resetBtn = document.querySelector(".reset");
 const toast = document.querySelector(".toast");
 const toastMessage = document.querySelector(".toast-message")
+const toastIcon = document.querySelector(".toast-icon")
 
 let questionIndex = 0;
 let currentScore = 0;
@@ -126,15 +127,34 @@ const nextQuestion = () => {
 
     toast.classList.add("success")
     toastMessage.innerHTML = "آفرین، درست جواب دادی!"
+    toastIcon.innerHTML = 
+    `<i>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
+        <path fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z" clip-rule="evenodd" />
+      </svg>            
+    </i>`
 
     let timer = setInterval
     
     setTimeout(() => {
       toast.classList.add("hidden")
-      
     }, 2000);
   } else {
     remainingGuess--;
+
+    toast.classList.add("error")
+    toastMessage.innerHTML = "پاسخ اشتباه بود!"
+    toastIcon.innerHTML = 
+    `<i>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
+        <path d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z" />
+      </svg>    
+    </i>`
+
+    let timer = setInterval
+    setTimeout(() => {
+      toast.classList.add("hidden")
+    }, 2000);
   }
 
   inputs.innerHTML = "";
