@@ -122,6 +122,8 @@ const loadQuestion = () => {
 };
 
 const nextQuestion = () => {
+
+
   toast.classList.remove("hidden")
   let processBarWidth = 0;
 
@@ -129,7 +131,6 @@ const nextQuestion = () => {
     currentScore += questions[questionIndex].score;
     score.innerHTML = currentScore;
     remainingGuess = 3;
-    questionIndex++;
 
     toast.classList.add("success")
     toastMessage.innerHTML = "آفرین، درست جواب دادی!"
@@ -141,10 +142,16 @@ const nextQuestion = () => {
     </i>`
 
     let timer = setInterval( () => {
+      continueBtn.classList.add("disabled")
       processBar.style.width = `${processBarWidth++}%`
       if (processBarWidth === 100) {
+        continueBtn.classList.remove("disabled")
         processBarWidth = 0;
+        inputs.innerHTML = "";
+        questionIndex++;
         clearInterval(timer);
+
+        loadQuestion()
       }
     }, 30)
     setTimeout(() => {
