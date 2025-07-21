@@ -120,10 +120,12 @@ const loadQuestion = () => {
 
 const nextQuestion = () => {
   toast.classList.remove("hidden")
+  let processBarWidth = 0;
 
   if (userWritted.innerHTML === questions[questionIndex].answer) {
     currentScore += questions[questionIndex].score;
     score.innerHTML = currentScore;
+    remainingGuess = 3;
     questionIndex++;
 
     toast.classList.add("success")
@@ -135,10 +137,17 @@ const nextQuestion = () => {
       </svg>            
     </i>`
 
-    let timer = setInterval
+    let timer = setInterval( () => {
+      processBar.style.width = `${processBarWidth++}%`
+      if (processBarWidth === 100) {
+        processBarWidth = 0;
+        clearInterval(timer);
+      }
+    }, 30)
     setTimeout(() => {
       toast.classList.add("hidden")
-    }, 2000);
+      toast.classList.remove("success")
+    }, 3200);
   } else {
     remainingGuess--;
 
@@ -151,14 +160,22 @@ const nextQuestion = () => {
       </svg>    
     </i>`
 
-    let timer = setInterval
+    let timer = setInterval( () => {
+      processBar.style.width = `${processBarWidth++}%`
+      if (processBarWidth === 100) {
+        processBarWidth = 0;
+        clearInterval(timer);
+      }
+    }, 30)
     setTimeout(() => {
       toast.classList.add("hidden")
-    }, 2000);
+      toast.classList.remove("error")
+    }, 3200);
   }
 
   inputs.innerHTML = "";
   userAnswer = [];
+  userWritted.innerHTML = ""
   loadQuestion();
 };
 
