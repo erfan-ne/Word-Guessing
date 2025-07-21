@@ -61,6 +61,7 @@ const resetBtn = document.querySelector(".reset");
 const toast = document.querySelector(".toast");
 const toastMessage = document.querySelector(".toast-message")
 const toastIcon = document.querySelector(".toast-icon")
+const processBar = document.querySelector(".process")
 
 let questionIndex = 0;
 let currentScore = 0;
@@ -135,7 +136,6 @@ const nextQuestion = () => {
     </i>`
 
     let timer = setInterval
-    
     setTimeout(() => {
       toast.classList.add("hidden")
     }, 2000);
