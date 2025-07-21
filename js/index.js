@@ -64,8 +64,7 @@ const toastIcon = document.querySelector(".toast-icon")
 const processBar = document.querySelector(".process")
 const modalScreen = document.querySelector(".modal-screen")
 const modalCard = document.querySelector(".modal-card")
-const cancelBtn = document.querySelector(".cancel")
-const tryAgainBtn = document.querySelector(".try-again")
+const tryAgainBtn = document.querySelector("#try-again")
 
 let questionIndex = 0;
 let currentScore = 0;
@@ -178,6 +177,7 @@ const nextQuestion = () => {
 
     if (remainingGuess === 0) {
       modalScreen.classList.remove("hidden")
+      modalCard.classList.add("error")
     }
   }
 
@@ -188,10 +188,13 @@ const nextQuestion = () => {
 };
 
 const resetGame = () => {
+  inputs.innerHTML = "";
   remainingGuess = 3;
   currentScore = 0;
+  score.innerHTML = 0;
   questionIndex = 0;
   userAnswer = [];
+  userWritted.innerHTML = ""
 
   loadQuestion();
 };
@@ -199,3 +202,8 @@ const resetGame = () => {
 window.addEventListener("load", loadQuestion);
 continueBtn.addEventListener("click", nextQuestion);
 resetBtn.addEventListener("click", resetGame);
+tryAgainBtn.addEventListener("click" , ()=>{
+  resetGame()
+  modalScreen.classList.add("hidden")
+  modalCard.classList.remove("error")
+})
