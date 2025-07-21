@@ -62,6 +62,10 @@ const toast = document.querySelector(".toast");
 const toastMessage = document.querySelector(".toast-message")
 const toastIcon = document.querySelector(".toast-icon")
 const processBar = document.querySelector(".process")
+const modalScreen = document.querySelector(".modal-screen")
+const modalCard = document.querySelector(".modal-card")
+const cancelBtn = document.querySelector(".cancel")
+const tryAgainBtn = document.querySelector(".try-again")
 
 let questionIndex = 0;
 let currentScore = 0;
@@ -171,6 +175,10 @@ const nextQuestion = () => {
       toast.classList.add("hidden")
       toast.classList.remove("error")
     }, 3200);
+
+    if (remainingGuess === 0) {
+      modalScreen.classList.remove("hidden")
+    }
   }
 
   inputs.innerHTML = "";
