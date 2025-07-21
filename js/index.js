@@ -171,8 +171,10 @@ const nextQuestion = () => {
     </i>`
 
     let timer = setInterval( () => {
+      continueBtn.classList.add("disabled")
       processBar.style.width = `${processBarWidth++}%`
       if (processBarWidth === 100) {
+        continueBtn.classList.remove("disabled")
         processBarWidth = 0;
         clearInterval(timer);
       }
